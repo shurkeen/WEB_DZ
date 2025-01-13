@@ -1,0 +1,20 @@
+-- Создание базы данных
+CREATE DATABASE IF NOT EXISTS billboards;
+USE billboards;
+
+-- Создаем таблицу для хранения информации о биллбордах
+CREATE TABLE IF NOT EXISTS Billboards (
+    billboard_id INT AUTO_INCREMENT PRIMARY KEY,  -- Уникальный идентификатор биллборда
+    location VARCHAR(255) NOT NULL,               -- Расположение биллборда
+    billboard_code VARCHAR(50) NOT NULL                        -- Нередактируемый атрибут (уникальный код или идентификатор)
+);
+
+-- Создаем таблицу для хранения заявок на аренду
+CREATE TABLE IF NOT EXISTS Ads_Requests (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,       -- Уникальный идентификатор заявки
+    company_name VARCHAR(255) NOT NULL,              -- Название компании-рекламодателя
+    start_date DATE NOT NULL,                        -- Дата начала аренды
+    end_date DATE NOT NULL,                          -- Дата окончания аренды
+    billboard_id INT NOT NULL,                       -- Связь с биллбордом (внешний ключ)
+    FOREIGN KEY (billboard_id) REFERENCES Billboards(billboard_id) ON DELETE CASCADE,
+);
